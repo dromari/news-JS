@@ -43,14 +43,7 @@ class Loader {
 
   private makeUrl(options: Record<string, string>, endpoint: string): string {
     const urlOptions: ILoaderOptions = { ...this.options, ...options };
-
-    // Проверяем, запущен ли сайт на GitHub Pages (наличие '.github.io' в адресной строке)
-    const isProduction = window.location.hostname.includes('github.io');
-
-    // Если на гитхабе — добавляем префикс 'mocks/', если локально — оставляем оригинальный endpoint
-    const targetEndpoint = isProduction ? `mocks/${endpoint}` : endpoint;
-
-    let url = `${this.baseLink}${targetEndpoint}?`;
+    let url = `${this.baseLink}${endpoint}?`;
 
     Object.keys(urlOptions).forEach((key: string) => {
       const value = urlOptions[key];
