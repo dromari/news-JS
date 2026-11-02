@@ -1,34 +1,105 @@
 .sources {
-    display: flex;
-    flex-wrap: nowrap;
-    width: 100%;
-    height: 120px;
-    overflow: auto;
-    align-items: center;
-    font: 300 1em 'Fira Sans', sans-serif;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  width: 100%;
+
+  height: auto;
+  max-height: 17vh;
+  overflow-y: auto;
+  font:
+    300 1em 'Fira Sans',
+    sans-serif;
+  margin-bottom: 25px;
+  padding: 10px 15px;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: #30c5ff rgba(255, 255, 255, 0.05);
+}
+
+.sources::-webkit-scrollbar {
+  width: 6px;
+}
+.sources::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+.sources::-webkit-scrollbar-thumb {
+  background-color: #30c5ff;
+  border-radius: 4px;
 }
 
 .source__item {
-    background: none;
-    border: 2px solid #30c5ff;
-    font: inherit;
-    line-height: 1;
-    margin: 0.5em;
-    padding: 1em 2em;
-    color: #70d6ff;
-    transition: 0.25s;
-    cursor: pointer;
+  background: none;
+  border: 2px solid #30c5ff;
+  font: inherit;
+  line-height: 1;
+  padding: 0.8em 1.2em;
+  color: #70d6ff;
+  transition: 0.25s;
+  cursor: pointer;
+  border-radius: 4px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.source__item:hover,
 .source__item:focus {
+  border-color: #3fcc59;
+  color: #69db7e;
+  box-shadow: 0 0.5em 0.5em -0.4em #3fcc59;
+  transform: translateY(-0.25em);
+  outline: none;
+}
+
+.source__item-name {
+  font-weight: 400;
+  white-space: nowrap;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 1600px) {
+  .sources {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .sources {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .sources {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .sources {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .sources {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 8px;
+    max-height: 30vh;
+  }
+  .source__item {
+    padding: 0.7em 1em;
+  }
+}
+
+@media (hover: hover) {
+  .source__item:hover {
     border-color: #3fcc59;
     color: #69db7e;
     box-shadow: 0 0.5em 0.5em -0.4em #3fcc59;
     transform: translateY(-0.25em);
-}
-
-.source__item-name {
-    font-weight: 400;
-    white-space: nowrap;
+  }
 }
