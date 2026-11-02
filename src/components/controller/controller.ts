@@ -1,8 +1,12 @@
 import AppLoader from './appLoader';
+import { IEverythingResponse, ISourcesResponse } from '../../interfaces';
+
+type SourcesCallback = (data: ISourcesResponse) => void;
+type NewsCallback = (data: IEverythingResponse) => void;
 
 class AppController extends AppLoader {
-  getSources(callback) {
-    super.getResp(
+  public getSources(callback: SourcesCallback): void {
+    super.getResp<ISourcesResponse>(
       {
         endpoint: 'sources',
       },
@@ -10,16 +14,18 @@ class AppController extends AppLoader {
     );
   }
 
-  getNews(e, callback) {
-    let target = e.target;
-    const newsContainer = e.currentTarget;
+  public getNews(e: Event, callback: NewsCallback): void {
+    let target = e.target as HTMLElement | null;
+    const newsContainer = e.currentTarget as HTMLElement | null;
+    if (!newsContainer) return;
 
-    while (target !== newsContainer) {
+    while (target && target !== newsContainer) {
       if (target.classList.contains('source__item')) {
         const sourceId = target.getAttribute('data-source-id');
-        if (newsContainer.getAttribute('data-source') !== sourceId) {
+
+        if (sourceId && newsContainer.getAttribute('data-source') !== sourceId) {
           newsContainer.setAttribute('data-source', sourceId);
-          super.getResp(
+          super.getResp<IEverythingResponse>(
             {
               endpoint: 'everything',
               options: {
@@ -31,7 +37,7 @@ class AppController extends AppLoader {
         }
         return;
       }
-      target = target.parentNode;
+      target = target.parentNode as HTMLElement | null;
     }
   }
 }
