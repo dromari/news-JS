@@ -10,6 +10,11 @@ interface IGetRespParams {
   options?: Record<string, string>;
 }
 
+enum ResponceCode {
+  NotFound = 404,
+  Unauthorized = 401,
+}
+
 type Callback<T> = (data: T) => void;
 
 class Loader {
@@ -32,7 +37,7 @@ class Loader {
 
   protected errorHandler(res: Response): Response {
     if (!res.ok) {
-      if (res.status === 401 || res.status === 404) {
+      if (res.status === ResponceCode.Unauthorized || res.status === ResponceCode.NotFound) {
         console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
       }
       throw Error(res.statusText);
